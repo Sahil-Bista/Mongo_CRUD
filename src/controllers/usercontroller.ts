@@ -4,6 +4,7 @@ app.use(express.json());
 import jwt from 'jsonwebtoken';
 import { User } from '../models/usermodel';
 
+
 const signUpUser = async(req:Request,res:Response)=>{
     const {username,pwd} = req.body;
     const role = "user";

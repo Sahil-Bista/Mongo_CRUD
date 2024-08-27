@@ -3,20 +3,21 @@ const app = express();
 app.use(express.json());
 import { jwtDecode } from "jwt-decode";
 import { Book } from '../models/bookmodel';
+import multer from 'multer';
+import { upload } from '../middleware/fileupload';
 
 const addBook = async(req:Request,res:Response)=>{
     try{
         const token :any = req.headers.authorization;
         const decoded_token : { username:String; id : String; iat : Date} = jwtDecode(token);
-        const {bookname,book_author,book_url} = req.body;
+        const {bookname,book_author} = req.body;
         let user_id : String = decoded_token.id;
-        console.log(user_id);
-        
+        const url = req.file?.path;
         async function insertBook(){
             const book = await Book.create({
                 bookname : bookname,
                 book_author : book_author,
-                book_image_url : book_url,
+                book_image_url : url,
                 owner : user_id
             });
         }

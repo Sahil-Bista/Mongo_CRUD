@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const bookSchema = new Schema({
     bookname : { type : String},
     book_author : {type : String, required : true},
-    book_image_url : {type : String},
+    book_image_url : {type : String , required : true},
     owner: {
         type: Schema.Types.ObjectId,
         required: true,
