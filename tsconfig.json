@@ -1,19 +1,12 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
     "outDir": "./dist",
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    // "noUnusedParameters": true,
-    // "noImplicitReturns": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-  },
-  "exclude": ["node_modules"],
-  "include": ["src/**/*.ts"]
+    "forceConsistentCasingInFileNames": true,  
+    "strict": true,
+    "skipLibCheck": true
+  }
 }

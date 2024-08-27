@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 
 export const middleware = (req: Request, res: Response, next: NextFunction) => {
     const authorization: any = req.headers.authorization;
-    console.log(authorization);
     if (!authorization) {
         return res.status(401).send("Token not found");
     }
@@ -21,6 +20,8 @@ export const middleware = (req: Request, res: Response, next: NextFunction) => {
         console.log(error.message);
         return res.status(401).send("Invalid token");
     }
+   
+
 }
 
 // export {middleware};
