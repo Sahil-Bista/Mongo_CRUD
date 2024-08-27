@@ -8,12 +8,13 @@ import {
 } from "../controllers/bookscontroller";
 import { upload } from "../middleware/fileupload";
 import { verifyAdmin } from "../middleware/adminvalidation";
+import { validationRules } from "../validators/validator";
 
 export const router = express.Router();
 
-router.post("/signup", signUpUser);
+router.post("/signup", validationRules, signUpUser);
 
-router.post("/login", loginUser);
+router.post("/login",  validationRules, loginUser);
 
 router.get("/viewUser", middleware, verifyAdmin, viewUser);
 

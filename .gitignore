@@ -135,3 +135,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 >>>>>>> 1b9895a5a8a584cc0de6f1bf95270253d80a2754
+"node_modules/" 

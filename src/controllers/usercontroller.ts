@@ -3,6 +3,8 @@ const app = express();
 app.use(express.json());
 import jwt from "jsonwebtoken";
 import { User } from "../models/usermodel";
+import validator, { validationResult } from 'express-validator';
+import { validationRules } from "../validators/validator";
 
 const viewUser = async (req: Request, res: Response) => {
   try {
@@ -15,6 +17,10 @@ const viewUser = async (req: Request, res: Response) => {
 
 const signUpUser = async (req: Request, res: Response) => {
   const { username, pwd, role } = req.body;
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({errors: errors.array()})
+  }
   if (!username || !pwd) {
     return res.status(400).send("Username and password required");
   }
@@ -34,6 +40,10 @@ const signUpUser = async (req: Request, res: Response) => {
 const loginUser = async (req: Request, res: Response) => {
   try {
     const { username, pwd } = req.body;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+    return res.status(400).json({errors: errors.array()})
+  }
     if (!username || !pwd) {
       return res.status(400).send("Username and password required");
     }
