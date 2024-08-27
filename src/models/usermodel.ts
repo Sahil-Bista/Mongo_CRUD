@@ -1,12 +1,12 @@
-import mongoose, { skipMiddlewareFunction } from 'mongoose';
+import mongoose, { skipMiddlewareFunction } from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    username : { type : String},
-    password : { type : String} ,
-    role : {type : String}  
-})
+  username: { type: String },
+  password: { type: String },
+  role: { type: String },
+});
 
-const User = mongoose.model("user",userSchema);
+const User = mongoose.model("user", userSchema);
 
-export {User};
+export { User };
