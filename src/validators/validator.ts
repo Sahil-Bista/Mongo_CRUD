@@ -1,8 +1,6 @@
-import express, { Request, Response } from "express";
-import { error } from "console";
-import { NextFunction } from "express";
-import { body, validationResult } from "express-validator";
-import { User } from "../models/usermodel";
+
+import { body } from "express-validator";
+
 
 
 const validationRules = [

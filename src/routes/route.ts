@@ -10,6 +10,7 @@ import { upload } from "../middleware/fileupload";
 import { verifyAdmin } from "../middleware/adminvalidation";
 import { validationRules } from "../validators/validator";
 import { seed } from "../seeder/seeder";
+import { bookValidationRules } from "../validators/bookvalidator";
 
 export const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post("/login", loginUser);
 
 router.get("/viewUser", middleware, verifyAdmin, viewUser);
 
-router.post("/addBook", middleware, upload.single("image"), addBook);
+router.post("/addBook", middleware, upload.single("image"), bookValidationRules,addBook);
 
 router.put("/updateBook", middleware, updateBook);
 
