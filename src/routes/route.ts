@@ -9,12 +9,15 @@ import {
 import { upload } from "../middleware/fileupload";
 import { verifyAdmin } from "../middleware/adminvalidation";
 import { validationRules } from "../validators/validator";
+import { seed } from "../seeder/seeder";
 
 export const router = express.Router();
 
+router.get("/",validationRules,seed);
+
 router.post("/signup", validationRules, signUpUser);
 
-router.post("/login",  validationRules, loginUser);
+router.post("/login", loginUser);
 
 router.get("/viewUser", middleware, verifyAdmin, viewUser);
 
