@@ -3,10 +3,8 @@ const app = express();
 app.use(express.json());
 import jwt from "jsonwebtoken";
 import { User } from "../models/usermodel";
-import { validationResult } from 'express-validator';
+import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
-
-
 
 const viewUser = async (req: Request, res: Response) => {
   try {
@@ -20,17 +18,17 @@ const viewUser = async (req: Request, res: Response) => {
 const signUpUser = async (req: Request, res: Response) => {
   const { username, pwd, role } = req.body;
   const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(pwd,saltRounds);
+  const hashedPassword = await bcrypt.hash(pwd, saltRounds);
   const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({errors: errors.array()})
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
   if (!username || !pwd) {
     return res.status(400).send("Username and password required");
   }
-  const existingUser = await User.findOne({username});
-  if(existingUser){
-    return res.status(400).json({ error: 'Username already in use' });
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return res.status(400).json({ error: "Username already in use" });
   }
   try {
     await User.create({
@@ -47,22 +45,22 @@ const signUpUser = async (req: Request, res: Response) => {
 
 const loginUser = async (req: Request, res: Response) => {
   try {
-    const { username, pwd }  = req.body;
+    const { username, pwd } = req.body;
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
-    return res.status(400).json({errors: errors.array()})
-  }
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     if (!username || !pwd) {
       return res.status(400).send("Username and password required");
     }
-    const user  = await User.findOne({ username: username });
+    const user = await User.findOne({ username: username });
     if (!user) {
       return res.send("user unavailable");
     }
-      const isPasswordValid = bcrypt.compare(pwd, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).send("invalid credentials");
-      }  
+    const isPasswordValid = bcrypt.compare(pwd, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send("invalid credentials");
+    }
     const payload = {
       username: username,
       id: user.id,

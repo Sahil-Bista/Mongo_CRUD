@@ -7,7 +7,6 @@ import { validationResult } from "express-validator";
 
 const addBook = async (req: Request, res: Response) => {
   try {
-
     const token: any = req.headers.authorization;
     const decoded_token: { username: String; id: String; iat: Date } =
       jwtDecode(token);
@@ -16,8 +15,8 @@ const addBook = async (req: Request, res: Response) => {
     const url = req.file?.path;
     //optional chaining  allows you to access properties or methods of an object without having to explicitly check if the object is null or undefined first.
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
-      return res.status(400).json({errors: errors.array()})
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
     async function insertBook() {
       const book = await Book.create({

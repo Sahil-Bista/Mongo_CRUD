@@ -11,10 +11,11 @@ import { verifyAdmin } from "../middleware/adminvalidation";
 import { validationRules } from "../validators/validator";
 import { seed } from "../seeder/seeder";
 import { bookValidationRules } from "../validators/bookvalidator";
+import {noURl} from "../controllers/errorController";
 
 export const router = express.Router();
 
-router.get("/",validationRules,seed);
+router.get("/", validationRules, seed);
 
 router.post("/signup", validationRules, signUpUser);
 
@@ -22,10 +23,20 @@ router.post("/login", loginUser);
 
 router.get("/viewUser", middleware, verifyAdmin, viewUser);
 
-router.post("/addBook", middleware, upload.single("image"), bookValidationRules,addBook);
+router.post(
+  "/addBook",
+  middleware,
+  upload.single("image"),
+  bookValidationRules,
+  addBook
+);
 
 router.put("/updateBook", middleware, updateBook);
 
 router.delete("/deleteBook", middleware, deleteBook);
+
+router.all("*", noURl);
+
+
 
 exports = { router };

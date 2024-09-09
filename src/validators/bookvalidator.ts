@@ -1,6 +1,4 @@
-
 import { body } from "express-validator";
-
 
 const bookValidationRules = [
   body("bookname")
@@ -13,9 +11,7 @@ const bookValidationRules = [
     .trim()
     .escape()
     .notEmpty()
-    .withMessage("Book_athor's name is required")
+    .withMessage("Book_athor's name is required"),
 ];
 
-export {bookValidationRules};
-  
-
+export { bookValidationRules };
