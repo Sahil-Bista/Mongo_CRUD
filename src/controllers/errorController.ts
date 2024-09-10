@@ -5,12 +5,12 @@ export const globalErrorHandler = (error: CustomError, req:Request,res:Response 
     error.statusCode = error.statusCode || 500;
     error.status = error.status || 'error';
     res.status(error.statusCode).json({
-        status:error.statusCode,
+        status : error.statusCode,
         message : error.message
     });
 }
 
-export const noURl = (req:Request,res:Response, next:NextFunction) =>{
+export const noURl = (req:Request, res:Response, next:NextFunction) =>{
     const err = new CustomError(`Can't find ${req.originalUrl} on the server!`, 404);
     next(err);
 }

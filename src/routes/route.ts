@@ -11,32 +11,31 @@ import { verifyAdmin } from "../middleware/adminvalidation";
 import { validationRules } from "../validators/validator";
 import { seed } from "../seeder/seeder";
 import { bookValidationRules } from "../validators/bookvalidator";
-import {noURl} from "../controllers/errorController";
+import { noURl } from "../controllers/errorController";
+import { handleAsync } from "../utils/handleAsync";
 
 export const router = express.Router();
 
 router.get("/", validationRules, seed);
 
-router.post("/signup", validationRules, signUpUser);
+router.post("/signup", validationRules, handleAsync(signUpUser));
 
-router.post("/login", loginUser);
+router.post("/login", handleAsync(loginUser));
 
-router.get("/viewUser", middleware, verifyAdmin, viewUser);
+router.get("/viewUser", middleware, verifyAdmin, handleAsync(viewUser));
 
 router.post(
   "/addBook",
   middleware,
   upload.single("image"),
   bookValidationRules,
-  addBook
+  handleAsync(addBook)
 );
 
-router.put("/updateBook", middleware, updateBook);
+router.put("/updateBook", middleware, handleAsync(updateBook));
 
-router.delete("/deleteBook", middleware, deleteBook);
+router.delete("/deleteBook", middleware, handleAsync(deleteBook));
 
 router.all("*", noURl);
-
-
 
 exports = { router };
